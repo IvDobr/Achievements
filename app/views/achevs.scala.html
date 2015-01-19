@@ -1,0 +1,79 @@
+<script xmlns="http://www.w3.org/1999/html">$('#new_ach').on('shown.bs.modal', function () {
+$('#myInput').focus()
+})</script>
+
+<div class="container">
+    <h2>Достижения</h2>
+    <div class="btn-group">
+        <a href="#" data-toggle="modal" data-target="#new_ach" class="btn btn-primary"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить достижение</a>
+        <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="#">Спортивная деятельность</a></li>
+            <li><a href="#">Творческая деятельность</a></li>
+            <li><a href="#">Общественная деятельность</a></li>
+            <li><a href="#">Научная деятельность</a></li>
+            <li><a href="#">Успехи в учебе</a></li>
+        </ul>
+    </div>
+
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr>
+                <th>Достижение</th>
+                <th>Дата</th>
+                <th>Категория</th>
+                <th>Статус на премию</th>
+                <th>Статус на стипендию</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="#">Тестовое достижение</a></td>
+                <td>25.11.1993</td>
+                <td>Общественная деятельность</td>
+                <td><span class="text-success">Принято</span></td>
+                <td><span class="text-danger">Отклонено</span></td>
+                <td>
+                    <a href="#" style="color: darkred;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="new_ach" tabindex="-1" role="dialog" aria-labelledby="new_achLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <h4 class="modal-title" id="new_achLabel">Добавление достижения</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label" for="inputDefault">Краткое описание</label>
+                        <input type="text" class="form-control" id="inputDefault">
+                    </div>
+                    <div class="form-group" style="width: 200px">
+                        <label class="control-label" for="inputDefault">Дата достижения</label>
+                        <input type="date" class="form-control" id="inputDefault">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="inputDefault">Категория достижения (НА ЗАМЕНУ)</label>
+                        <input type="text" class="form-control" id="inputDefault">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="inputDefault">Дополнительная информация</label>
+                        <input type="text" class="form-control" id="inputDefault">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#"  class="btn btn-default" data-dismiss="modal">Отмена</a>
+                    <a href="#" class="btn btn-success" data-dismiss="modal">Отправить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
