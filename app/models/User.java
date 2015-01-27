@@ -18,6 +18,8 @@ public class User extends Model {
     @Constraints.Required
     @Column(unique=true)
     private String userLogin;
+    private String userFirstName;
+    private String userLastName;
     @Constraints.Required
     private String userPass;
     @Constraints.Required
@@ -28,6 +30,22 @@ public class User extends Model {
     private Boolean userStatus;
     @Constraints.Required
     private String userGroup;
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
+    }
+
+    public String getUserFirstName() {
+        return userFirstName;
+    }
+
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -92,4 +110,6 @@ public class User extends Model {
     public void setUserGroup(String userGroup) {
         this.userGroup = userGroup;
     }
+
+    public static Finder<String, User> find = new Finder<String, User>(String.class, User.class);
 }

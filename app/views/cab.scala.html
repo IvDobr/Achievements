@@ -1,6 +1,89 @@
-@(message: String)
+@(username: String)
 
 @main("Личный кабинет студента") {
-    @navbar()
+
+    <script xmlns="http://www.w3.org/1999/html">$('#high_stip').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+    })</script>
+
+    <div class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Твои достижения</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-inverse-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Повышенная стипендия <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" data-target="#high_stip"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Справка</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Категории достижений</li>
+                            <li><a href="#">Спортивная деятельность</a></li>
+                            <li><a href="#">Творческая деятельность</a></li>
+                            <li><a href="#">Общественная деятельность</a></li>
+                            <li><a href="#">Научная деятельность</a></li>
+                            <li><a href="#">Успехи в учебе</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Текущий статус</li>
+                            <li><a href="#"><strong>ЙЙццццццц</strong></a></li>
+                            <li><a href="#">Не подавать заявку</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>@username</strong><b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Профиль</a></li>
+                            <li class="divider"></li>
+                            <li><a href="@routes.Secure.logOutProc()"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Выход</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="high_stip" tabindex="-1" role="dialog" aria-labelledby="high_stipLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <h4 class="modal-title" id="high_stipLabel">Подача заявки на повышенную стипендию</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Повышенная академическая стипендия назначается студентам-бюджетникам за достижения:
+                    </p>
+                    <ul>
+                        <li>в учебной деятельности</li>
+                        <li>в научно-исследовательской деятельности</li>
+                        <li>в общественной деятельности</li>
+                        <li>в культурно-творческой деятельности</li>
+                        <li>в спортивной деятельности</li>
+                    </ul>
+                    <p>По каждому из направлений предусматриваются определенные критерии,
+                        с которыми можно ознакомиться в <a href='@routes.Assets.at("docs/stip_rules.pdf")'>Правилах назначения повышенной
+                        академической стипендии</a>. Решение о назначении повышенной стипендии
+                        принимает стипендиальная комиссия ИГУ на основании рейтинга претендентов.
+                        Повышенная стипендия назначается на один семестр.
+                    </p>
+                    <p class="text-danger">
+                        Заявка подаётся только по одной выбранной категории.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @achevs()
 }
