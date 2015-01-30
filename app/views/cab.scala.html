@@ -24,15 +24,15 @@
                             <li><a href="#" data-toggle="modal" data-target="#high_stip"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Справка</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Категории достижений</li>
-                            <li><a href="#" data-bind="click: setStip">Научная деятельность</a></li>
-                            <li><a href="#" data-bind="click: setStip">Спортивная деятельность</a></li>
-                            <li><a href="#" data-bind="click: setStip">Творческая деятельность</a></li>
-                            <li><a href="#" data-bind="click: setStip">Общественная деятельность</a></li>
-                            <li><a href="#" data-bind="click: setStip">Успехи в учебе</a></li>
+                            <li><a href="#" data-bind="click: setStip.bind($data, '1')">Научная деятельность</a></li>
+                            <li><a href="#" data-bind="click: setStip.bind($data, '2')">Спортивная деятельность</a></li>
+                            <li><a href="#" data-bind="click: setStip.bind($data, '3')">Творческая деятельность</a></li>
+                            <li><a href="#" data-bind="click: setStip.bind($data, '4')">Общественная деятельность</a></li>
+                            <li><a href="#" data-bind="click: setStip.bind($data, '5')">Успехи в учебе</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Текущий статус</li>
-                            <li><a href="#"><strong data-bind="text: currStip"></strong></a></li>
-                            <li><a href="#">Не подавать заявку</a></li>
+                            <li><a href="#" data-bind="click: getStip"><strong data-bind="text: currStip"></strong></a></li>
+                            <li><a href="#" data-bind="click: setStip.bind($data, '0')">Не подавать заявку</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -40,7 +40,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>@username</strong><b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Профиль</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#profile_ss"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Профиль</a></li>
                             <li class="divider"></li>
                             <li><a href="@routes.Secure.logOutProc()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Выход</a></li>
                         </ul>
@@ -80,6 +80,26 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="profile_ss" tabindex="-3" role="dialog" aria-labelledby="profileLabel" aria-hidden="true">
+        <div class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Профиль</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h2>бла бла</h2><h2><small>ывыв</small></h2>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-primary">Сохранить</button>
+                    </div>
                 </div>
             </div>
         </div>

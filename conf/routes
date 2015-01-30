@@ -13,7 +13,10 @@ GET           /logout              controllers.Secure.logOutProc()
 GET           /cabinet             controllers.Application.cab()
 
 # API
-GET           /api/setstip         controllers.API.setStipJSON()
+PUT           /api/userstip        controllers.API.setStipJSON()
+GET           /api/userstip        controllers.API.getStipJSON()
+
+GET           /api/bender          controllers.API.checkBenderJSON()
 
 GET           /api/cabinet         controllers.API.getAllAchievsJSON()
 POST          /api/cabinet         controllers.API.newAchievJSON()
