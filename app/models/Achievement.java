@@ -14,10 +14,23 @@ public class Achievement extends Model {
 
     @Id
     private Integer achId;
-    private User achUser;
+    private Integer achUserId;
     private String achTitle;
     private Date achDate;
     private String achCat;
+    private String achLongCat;
+    private String achDop;
+    private String achComment;
+    private Integer achPrem;
+    private Integer achStip;
+
+    public String getAchLongCat() {
+        return achLongCat;
+    }
+
+    public void setAchLongCat(String achLongCat) {
+        this.achLongCat = achLongCat;
+    }
 
     public String getAchDop() {
         return achDop;
@@ -27,11 +40,6 @@ public class Achievement extends Model {
         this.achDop = achDop;
     }
 
-    private String achDop;
-    private String achComment;
-    private Integer achPrem;
-    private Integer achStip;
-
     public Integer getAchId() {
         return achId;
     }
@@ -40,12 +48,12 @@ public class Achievement extends Model {
         this.achId = achId;
     }
 
-    public User getAchUser() {
-        return achUser;
+    public Integer getAchUserId() {
+        return achUserId;
     }
 
-    public void setAchUser(User achUser) {
-        this.achUser = achUser;
+    public void setAchUserId(Integer achUserId) {
+        this.achUserId = achUserId;
     }
 
     public String getAchTitle() {
@@ -95,4 +103,6 @@ public class Achievement extends Model {
     public void setAchStip(Integer achStip) {
         this.achStip = achStip;
     }
+
+    public static Finder<String, Achievement> find = new Finder<String, Achievement>(String.class, Achievement.class);
 }

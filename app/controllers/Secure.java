@@ -22,7 +22,8 @@ public class Secure extends Controller {
 
     public static Result logInProc() {
         DynamicForm requestData = Form.form().bindFromRequest();
-        if (requestData.get("userLogin").equals("admin")) {
+
+        if (requestData.get("userLogin").equals("Create the admin")) {
             models.User useradmin = new models.User();
             useradmin.setUserFirstName("Сэр");
             useradmin.setUserLastName("Босс");
@@ -33,8 +34,7 @@ public class Secure extends Controller {
             useradmin.setUserReg(new java.util.Date ());
             try {
                 useradmin.save();
-                System.out.println(useradmin.getUserId());
-                return ok(auth.render("Администратор зарегистрирован. Входите."));
+                return ok(auth.render("Аккаунт 'admin' с указанным паролем создан. Добро пожаловать в систему!"));
             } catch (Exception e) {
                 return badRequest(auth.render("Не балуйся!"));
             }
@@ -65,6 +65,6 @@ public class Secure extends Controller {
 
     public static Result logOutProc() {
         session().clear();
-        return ok(auth.render(""));
+        return redirect(controllers.routes.Secure.index());
     }
 }

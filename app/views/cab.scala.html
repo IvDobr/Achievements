@@ -14,7 +14,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Твои достижения</a>
+                <a class="navbar-brand" href="#"><strong>Твои достижения</strong></a>
             </div>
             <div class="navbar-collapse collapse navbar-inverse-collapse">
                 <ul class="nav navbar-nav">
@@ -24,14 +24,14 @@
                             <li><a href="#" data-toggle="modal" data-target="#high_stip"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Справка</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Категории достижений</li>
-                            <li><a href="#">Спортивная деятельность</a></li>
-                            <li><a href="#">Творческая деятельность</a></li>
-                            <li><a href="#">Общественная деятельность</a></li>
-                            <li><a href="#">Научная деятельность</a></li>
-                            <li><a href="#">Успехи в учебе</a></li>
+                            <li><a href="#" data-bind="click: setStip">Научная деятельность</a></li>
+                            <li><a href="#" data-bind="click: setStip">Спортивная деятельность</a></li>
+                            <li><a href="#" data-bind="click: setStip">Творческая деятельность</a></li>
+                            <li><a href="#" data-bind="click: setStip">Общественная деятельность</a></li>
+                            <li><a href="#" data-bind="click: setStip">Успехи в учебе</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Текущий статус</li>
-                            <li><a href="#"><strong>ЙЙццццццц</strong></a></li>
+                            <li><a href="#"><strong data-bind="text: currStip"></strong></a></li>
                             <li><a href="#">Не подавать заявку</a></li>
                         </ul>
                     </li>
@@ -42,7 +42,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Профиль</a></li>
                             <li class="divider"></li>
-                            <li><a href="@routes.Secure.logOutProc()"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Выход</a></li>
+                            <li><a href="@routes.Secure.logOutProc()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Выход</a></li>
                         </ul>
                     </li>
                 </ul>
