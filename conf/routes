@@ -16,6 +16,8 @@ GET           /cabinet             controllers.Application.cab()
 PUT           /api/userstip        controllers.API.setStipJSON()
 GET           /api/userstip        controllers.API.getStipJSON()
 
+GET           /api/user            controllers.API.getUserInfoJSON()
+
 GET           /api/bender          controllers.API.checkBenderJSON()
 
 GET           /api/cabinet         controllers.API.getAllAchievsJSON()

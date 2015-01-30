@@ -40,6 +40,37 @@ ViewModelAhieves = function() {
     self.canDel = ko.observable(true);
     self.currStip = ko.observable("?");
 
+    self.userName = ko.observable("");
+    self.userStatus = ko.observable("");
+    self.userLogin = ko.observable("");
+    self.userFaculty = ko.observable("");
+    self.userReg = ko.observable("");
+    self.userStip = ko.observable("");
+    self.userGroup = ko.observable("");
+
+    self.getUserInfo = function(){
+        jsRoutes.controllers.API.getUserInfoJSON().ajax({
+            dataType : 'json',
+            contentType : 'charset=utf-8',
+            success : function(data) {
+                var o = data.user;
+                self.userName(o.userFirstName + " " + o.userLastName);
+                self.userLogin(o.userLogin);
+                self.userFaculty(o.userFaculty);
+                var date = new Date(o.userReg);
+                self.userReg(date.toLocaleDateString());
+                self.userStip(o.userStip);
+                self.userGroup(o.userGroup);
+                self.userStatus(o.userStatus);
+            },
+            error : function(data) {
+                alert("error! "+ data.error);
+                console.log('Не могу отправить json запрос');
+                console.log(data);
+            }
+        });
+    };
+
     self.checkBender = function() {
         jsRoutes.controllers.API.checkBenderJSON().ajax({
             dataType : 'json',
@@ -134,9 +165,6 @@ ViewModelAhieves = function() {
         self.achTitle(ach.achTitle());
         var dStr = ach.achDate().split(".");
         self.achDate(dStr[2]+"-"+dStr[1]+"-"+dStr[0]);
-        $("a.AchCat_see").removeClass("active");
-        $("li.AchCat_see").removeClass("active");
-        $( "#LongCat_1_1" ).addClass("active");
         //$('#'+ach.achCat()).addClass("active");
         self.achDop(ach.achDop());
         self.achComment(ach.achComment());
@@ -145,7 +173,19 @@ ViewModelAhieves = function() {
         self.achStip(ach.achStip());
         self.classStip(ach.classStip());
         self.canDel(ach.canDel());
-        $('#see-ach').modal('show')
+        $('#see-ach').modal('show');
+        if(ach.achCat() == "Успехи в учебе"){
+            $('a[href="#cat_learn-see"]').tab('show');
+        }else if (ach.achCat() == "Научная деятельность"){
+            $('a[href="#cat_science-see"]').tab('show');
+        }else if (ach.achCat() == "Спортивная деятельность"){
+            $('a[href="#cat_sport-see"]').tab('show');
+        }else if (ach.achCat() == "Творческая деятельность"){
+            $('a[href="#cat_tvor-see"]').tab('show');
+        }else if (ach.achCat() == "Общественная деятельность"){
+            $('a[href="#cat_obsh-see"]').tab('show');
+        }
+        $( "a[id='"+ach.achLongCat()+"']" ).addClass("active");
     };
 
     self.editAchieve = function(){
@@ -178,8 +218,6 @@ ViewModelAhieves = function() {
             }
         });
     };
-
-
 
     self.setStip = function(stip){;
         var o = {stip: stip};
@@ -219,7 +257,13 @@ ViewModelAhieves = function() {
     };
 
     self.removeAchiev = function(ach) {
-        var o = {achId : ach.achId};
+        var o;
+        if (ach == "bt"){
+            alert();
+            o = {achId : self.achId.toString()};
+        }else{
+            o = {achId : ach.achId};
+        }
         var dataJSON = JSON.stringify(o);
         console.log("dataJSON: " + dataJSON);
         jsRoutes.controllers.API.deleteAchievJSON().ajax({

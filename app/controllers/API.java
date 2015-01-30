@@ -198,6 +198,16 @@ public class API extends Controller {
         }
     }
 
+    public static Result getUserInfoJSON(){
+        ObjectNode result = Json.newObject();
+        User current_user = User.find.byId(Crypto.decryptAES(session("current_user")));
+        current_user.setUserPass(null);
+        JsonNode UserJson = Json.toJson(current_user);
+        result.put("status", "OK");
+        result.put("user", UserJson);
+        return ok(result);
+    }
+
     public static Result jsRoutes() {
         response().setContentType("text/javascript");
         return ok(
@@ -208,7 +218,8 @@ public class API extends Controller {
                         controllers.routes.javascript.API.getAllAchievsJSON(),
                         controllers.routes.javascript.API.deleteAchievJSON(),
                         controllers.routes.javascript.API.editAchievJSON(),
-                        controllers.routes.javascript.API.newAchievJSON()
+                        controllers.routes.javascript.API.newAchievJSON(),
+                        controllers.routes.javascript.API.getUserInfoJSON()
                 )
         );
     }

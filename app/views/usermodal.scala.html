@@ -1,16 +1,38 @@
-<div class="modal fade" id="profile" tabindex="-3" role="dialog" aria-labelledby="profileLabel" aria-hidden="true">
-    <div class="modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Профиль</h4>
+<script xmlns="http://www.w3.org/1999/html">$('#user_profile').on('shown.bs.modal', function () {
+$('#myInput').focus()
+})</script>
+<div class="modal fade" id="user_profile" tabindex="-1" role="dialog" aria-labelledby="user_profileLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                <h4 class="modal-title" id="user_profileLabel">Профиль</h4>
+            </div>
+            <div class="modal-body">
+                <h1><strong><span data-bind="text: userName"></span></strong>    <small data-bind="visible: userStatus">Активен</small></h1>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Логин</div>
+                    <div class="panel-body" data-bind="text: userLogin"></div>
                 </div>
-                <h2>бла бла</h2><h2><small>ывыв</small></h2>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary">Сохранить</button>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Факультет</div>
+                    <div class="panel-body" data-bind="text: userFaculty"></div>
                 </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Дата регистрации</div>
+                    <div class="panel-body" data-bind="text: userReg"></div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Заявка на повышенную стипендию</div>
+                    <div class="panel-body" data-bind="text: userStip"></div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Группа</div>
+                    <div class="panel-body" data-bind="text: userGroup"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
