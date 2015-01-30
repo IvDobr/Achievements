@@ -43,17 +43,14 @@ ViewModelAhieves = function() {
         self.achId(null);
         self.achTitle("");
         self.achDate("");
-        self.achCat("");
-        self.achLongCat("");
         self.achDop("");
     };
 
     self.newAchieve = function(){
+        var achCat = $("li.newAchCat.active").attr("id");
+        var achLongCat = $("a.newAchCat.active").attr("id");
         var achiev = new bdAchiev (
-            self.achId(), self.achTitle(), self.achDate(),
-            //self.achCat(), self.achLongCat(),
-            "Успехи в учебе", "LongCat_1_1",
-            self.achDop());
+            self.achId(), self.achTitle(), self.achDate(), achCat, achLongCat, self.achDop());
         var dataJSON = ko.toJSON(achiev);
         console.log("newAchiev dataJSON: " + dataJSON);
         jsRoutes.controllers.API.newAchievJSON().ajax({
@@ -214,15 +211,14 @@ $( document ).ready(function() {
     ko.applyBindings(new ViewModelAhieves());
 });
 
-$( document ).ready(
-    function() {
-        $("a.list-group-item[id = 'newAchCat']").click( function() {
-                $("a.list-group-item[id = 'newAchCat']").removeClass("active");
+$( document ).ready(function() {
+        $("a.newAchCat").click( function() {
+                $("a.newAchCat").removeClass("active");
                 $(this).addClass("active");
             }
         );
-        $("a.list-group-item[id = 'editAchCat']").click( function() {
-                $("a.list-group-item[id = 'editAchCat']").removeClass("active");
+        $("a.editAchCat").click( function() {
+                $("a.editAchCat").removeClass("active");
                 $(this).addClass("active");
             }
         );

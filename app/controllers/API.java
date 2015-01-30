@@ -38,6 +38,7 @@ public class API extends Controller {
         Date docDate = new Date();
         try {
             docDate = formatDateJSON.parse(request.findPath("achDate").textValue() + " 12");
+            // +12 часов - это заплатка чтобы не отнимались одни сутки после 26.10.2014
         } catch (ParseException ex) {
             System.out.println("Это не должно произойти");
         }
@@ -51,7 +52,7 @@ public class API extends Controller {
         achievement.setAchDop(request.findPath("achDop").textValue());
         achievement.setAchComment("");
         achievement.setAchPrem(1);
-        achievement.setAchStip(3);
+        achievement.setAchStip(1);
         try{
             achievement.save();
         } catch(Exception e) {
