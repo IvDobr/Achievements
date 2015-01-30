@@ -9,7 +9,8 @@ $('#myInput').focus()
                 <h4 class="modal-title" id="user_profileLabel">Профиль</h4>
             </div>
             <div class="modal-body">
-                <h1><strong><span data-bind="text: userName"></span></strong>    <small data-bind="visible: userStatus">Активен</small></h1>
+                <img src="@routes.Assets.at("images/favicon.png")" width="80" height="80"/>   <div style="display: inline-block"><h1><strong><span data-bind="text: userName"></span></strong>    <small data-bind="visible: userStatus">Активен</small></h1></div>
+                <br><br>
                 <div class="panel panel-default">
                     <div class="panel-heading">Логин</div>
                     <div class="panel-body" data-bind="text: userLogin"></div>
