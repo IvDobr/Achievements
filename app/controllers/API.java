@@ -128,7 +128,7 @@ public class API extends Controller {
         try{
             achievement.save();
         } catch(Exception e) {
-            System.out.println("Тут какая-то хуйня");
+            System.out.println("Тут какая-то проблема");
             result.put("status", "error");
             return badRequest(result);
         }
