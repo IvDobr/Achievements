@@ -247,7 +247,17 @@ ViewModelAhieves = function() {
             success : function(data) {
                     var o = data.stip;
                     self.currStip(o);
-                },
+                    $('#popStip').popover('show');
+                    setTimeout(function() { $('#popStip').popover('hide')}, 4500);
+//                    $(document).click(function () {
+//                        $('#popStip').popover('hide');
+//                    });
+//                    setTimeout(function() {
+//                        $(document).click(function () {
+//                            $('#popStip').popover('hide');
+//                        });
+//                    }, 100);
+            },
             error : function(data) {
                 alert("error! "+ data.error);
                 console.log('Не могу отправить json запрос');
@@ -338,12 +348,11 @@ ViewModelAhieves = function() {
     self.reloadAchievs = function() {
         self.achieves.removeAll();
         self.loadAchievs();
-    }
+    };
 
     self.loadAchievs();
 
 };
-
 $( document ).ready(function() {
     ko.applyBindings(new ViewModelAhieves());
 });
