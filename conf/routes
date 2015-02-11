@@ -11,6 +11,7 @@ GET           /logout              controllers.Secure.logOutProc()
 
 # Content
 GET           /cabinet             controllers.Application.cab()
+GET           /admin               controllers.Application.admin_cab()
 
 # API
 PUT           /api/userstip        controllers.API.setStipJSON()
@@ -24,6 +25,10 @@ GET           /api/cabinet         controllers.API.getAllAchievsJSON()
 POST          /api/cabinet         controllers.API.newAchievJSON()
 DELETE        /api/cabinet         controllers.API.deleteAchievJSON()
 PUT           /api/cabinet         controllers.API.editAchievJSON()
+
+# admin API
+
+#  API
 
 # jsRoutes
 GET           /api/jsRoutes        controllers.API.jsRoutes()

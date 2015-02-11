@@ -249,14 +249,6 @@ ViewModelAhieves = function() {
                     self.currStip(o);
                     $('#popStip').popover('show');
                     setTimeout(function() { $('#popStip').popover('hide')}, 4500);
-//                    $(document).click(function () {
-//                        $('#popStip').popover('hide');
-//                    });
-//                    setTimeout(function() {
-//                        $(document).click(function () {
-//                            $('#popStip').popover('hide');
-//                        });
-//                    }, 100);
             },
             error : function(data) {
                 alert("error! "+ data.error);
@@ -353,6 +345,7 @@ ViewModelAhieves = function() {
     self.loadAchievs();
 
 };
+
 $( document ).ready(function() {
     ko.applyBindings(new ViewModelAhieves());
 });

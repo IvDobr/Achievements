@@ -1,12 +1,15 @@
 <div class="container">
     <script type="text/javascript" src="@routes.API.jsRoutes()"></script>
-    <script type="text/javascript" src ='@routes.Assets.at("javascripts/achevs.js")'></script>
+    <script type="text/javascript" src ='@routes.Assets.at("javascripts/user.js")'></script>
     <script type="text/javascript" src ='@routes.Assets.at("javascripts/docs.min.js")'></script>
-    <h2>Достижения <small>Всего: </small><small data-bind="text: achieves().length"></small></h2>
+    <h2>Достижения <small>Всего: </small> <small data-bind="text: achieves().length"></small></h2>
     <div>
-        <button data-toggle="modal" data-target="#new-ach" class="btn btn-primary"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить достижение</button>
-        <button data-bind="click: reloadAchievs" class="btn btn-primary"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Обновить</button>
-        <button data-bind="click: checkBender" class="btn btn-warning pull-right" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Я зарандомлю ВСЁ"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Проверка от Бендера</button>
+        <button data-toggle="modal" data-target="#new-ach" class="btn btn-primary"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Добавить достижение</button>
+        <button data-bind="click: reloadAchievs" class="btn btn-primary"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            Обновить</button>
+        <button data-bind="click: checkBender" class="btn btn-warning pull-right" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Я зарандомлю ВСЁ"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            Проверка от Бендера</button>
     </div>
     <table class="table table-striped table-hover">
         <thead>
@@ -27,11 +30,11 @@
                 <td><span data-bind="attr: {class: classPrem}, text: achPrem"></span></td>
                 <td><span data-bind="attr: {class: classStip}, text: achStip"></span></td>
                 <td>
-                <a href="#" style="color: darkred;" data-bind="click: $root.removeAchiev">
-                    <span data-bind="visible: canDel">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    </span>
-                </a>
+                    <a href="#" style="color : darkred ;" data-bind="click: $root.removeAchiev">
+                        <span data-bind="visible: canDel">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </span>
+                    </a>
                 </td>
             </tr>
         </tbody>
