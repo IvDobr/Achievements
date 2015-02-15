@@ -62,23 +62,23 @@ public class API extends Controller {
         JsonNode request = request().body().asJson();
         System.out.println("adding stip: " + request);
         switch (Integer.parseInt(request.findPath("stip").textValue())){
-            case 0:
-                current_user.setUserStip("Не задано");
-                break;
             case 1:
-                current_user.setUserStip("Научная деятельность");
+                current_user.setUserStip(1); //Не задано
                 break;
             case 2:
-                current_user.setUserStip("Спортивная деятельность");
+                current_user.setUserStip(2); //Научная деятельность
                 break;
             case 3:
-                current_user.setUserStip("Творческая деятельность");
+                current_user.setUserStip(3); //Спортивная деятельность
                 break;
             case 4:
-                current_user.setUserStip("Общественная деятельность");
+                current_user.setUserStip(4); //Творческая деятельность
                 break;
             case 5:
-                current_user.setUserStip("Успехи в учебе");
+                current_user.setUserStip(5); //Общественная деятельность
+                break;
+            case 6:
+                current_user.setUserStip(6); //Успехи в учебе
                 break;
         }
         try{
@@ -110,21 +110,22 @@ public class API extends Controller {
         Date docDate = new Date();
         try {
             docDate = formatDateJSON.parse(request.findPath("achDate").textValue() + " 12");
-            // +12 часов - это заплатка чтобы не отнимались одни сутки после 26.10.2014
+            // +12 часов - это заплатка, чтобы не отнимались одни сутки после 26.10.2014
         } catch (ParseException ex) {
             System.out.println("Это не должно произойти");
         }
 
-        Achievement achievement = new Achievement();
-        achievement.setAchUserId(current_user.getUserId());
-        achievement.setAchTitle(request.findPath("achTitle").textValue());
-        achievement.setAchDate(docDate);
-        achievement.setAchCat(request.findPath("achCat").textValue());
-        achievement.setAchLongCat(request.findPath("achLongCat").textValue());
-        achievement.setAchDop(request.findPath("achDop").textValue());
-        achievement.setAchComment("");
-        achievement.setAchPrem(1);
-        achievement.setAchStip(1);
+        Achievement achievement = new Achievement(
+                current_user.getUserId(),
+                request.findPath("achTitle").textValue(),
+                docDate,
+                request.findPath("achCat").textValue(),
+                request.findPath("achLongCat").textValue(),
+                request.findPath("achDop").textValue(),
+                "",
+                1,
+                1
+        );
         try{
             achievement.save();
         } catch(Exception e) {

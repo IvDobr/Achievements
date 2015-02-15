@@ -23,13 +23,37 @@ public class User extends Model {
     @Constraints.Required
     private String userPass;
     @Constraints.Required
-    private String userFaculty;
+    private Integer userFaculty;
     private Date userReg;
-    private String userStip;
+    private Integer userStip;
     @Constraints.Required
     private Boolean userStatus;
     @Constraints.Required
     private String userGroup;
+
+    public User() {
+    }
+
+    public User(
+            String userLogin,
+            String userFirstName,
+            String userLastName,
+            String userPass,
+            Integer userFaculty,
+            Date userReg,
+            Integer userStip,
+            Boolean userStatus,
+            String userGroup) {
+        this.userLogin = userLogin;
+        this.userFirstName = userFirstName;
+        this.userLastName = userLastName;
+        this.userPass = userPass;
+        this.userFaculty = userFaculty;
+        this.userReg = userReg;
+        this.userStip = userStip;
+        this.userStatus = userStatus;
+        this.userGroup = userGroup;
+    }
 
     public String getUserLastName() {
         return userLastName;
@@ -71,11 +95,11 @@ public class User extends Model {
         this.userPass = userPass;
     }
 
-    public String getUserFaculty() {
+    public Integer getUserFaculty() {
         return userFaculty;
     }
 
-    public void setUserFaculty(String userFaculty) {
+    public void setUserFaculty(Integer userFaculty) {
         this.userFaculty = userFaculty;
     }
 
@@ -87,11 +111,11 @@ public class User extends Model {
         this.userReg = userReg;
     }
 
-    public String getUserStip() {
+    public Integer getUserStip() {
         return userStip;
     }
 
-    public void setUserStip(String userStip) {
+    public void setUserStip(Integer userStip) {
         this.userStip = userStip;
     }
 

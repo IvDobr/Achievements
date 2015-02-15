@@ -24,6 +24,27 @@ public class Achievement extends Model {
     private Integer achPrem;
     private Integer achStip;
 
+    public Achievement(
+            Integer achUserId,
+            String achTitle,
+            Date achDate,
+            String achCat,
+            String achLongCat,
+            String achDop,
+            String achComment,
+            Integer achPrem,
+            Integer achStip) {
+        this.achUserId = achUserId;
+        this.achTitle = achTitle;
+        this.achDate = achDate;
+        this.achCat = achCat;
+        this.achLongCat = achLongCat;
+        this.achDop = achDop;
+        this.achComment = achComment;
+        this.achPrem = achPrem;
+        this.achStip = achStip;
+    }
+
     public String getAchLongCat() {
         return achLongCat;
     }
