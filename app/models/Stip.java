@@ -37,4 +37,6 @@ public class Stip extends Model {
     public void setStipId(Integer stipId) {
         this.stipId = stipId;
     }
+
+    public static Finder<String, Stip> find = new Finder<String, Stip>(String.class, Stip.class);
 }

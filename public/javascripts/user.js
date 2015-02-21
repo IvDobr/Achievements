@@ -57,8 +57,7 @@ ViewModelAhieves = function() {
                 self.userName(o.userFirstName + " " + o.userLastName);
                 self.userLogin(o.userLogin);
                 self.userFaculty(o.userFaculty);
-                var date = new Date(o.userReg);
-                self.userReg(date.toLocaleDateString());
+                self.userReg(o.userReg);
                 self.userStip(o.userStip);
                 self.userGroup(o.userGroup);
                 self.userStatus(o.userStatus);
@@ -66,7 +65,6 @@ ViewModelAhieves = function() {
             error : function(data) {
                 alert("error! "+ data.error);
                 console.log('Не могу отправить json запрос');
-                console.log(data);
             }
         });
     };
@@ -75,19 +73,16 @@ ViewModelAhieves = function() {
         jsRoutes.controllers.API.checkBenderJSON().ajax({
             dataType : 'json',
             contentType : 'charset=utf-8',
-            success : function(data) {
+            success : function() {
                 self.reloadAchievs();
             },
-            error : function(data) {
+            error : function() {
                 alert("Эй, я не могу так быстро работать!");
-                console.log('Не могу отправить json запрос');
-                console.log(data);
             }
         });
     };
 
     self.dataReset = function () {
-
         self.achId = ko.observable(null);
         self.achTitle = ko.observable("");
         self.achDate = ko.observable("");
@@ -160,7 +155,6 @@ ViewModelAhieves = function() {
 
     self.seeAchieve = function(ach){
         console.log("edit: " + ach.achTitle());
-
         self.achId(ach.achId.toString());
         self.achTitle(ach.achTitle());
         var dStr = ach.achDate().split(".");

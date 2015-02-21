@@ -11,13 +11,12 @@ GET           /logout              controllers.Secure.logOutProc()
 
 # Content
 GET           /cabinet             controllers.Application.cab()
-GET           /admin               controllers.Application.admin_cab()
 
 # API
 PUT           /api/userstip        controllers.API.setStipJSON()
 GET           /api/userstip        controllers.API.getStipJSON()
 
-GET           /api/user            controllers.API.getUserInfoJSON()
+GET           /api/userinfo        controllers.API.getUserInfoJSON()
 
 GET           /api/bender          controllers.API.checkBenderJSON()
 
@@ -26,9 +25,16 @@ POST          /api/cabinet         controllers.API.newAchievJSON()
 DELETE        /api/cabinet         controllers.API.deleteAchievJSON()
 PUT           /api/cabinet         controllers.API.editAchievJSON()
 
-# admin API
+# Admin
 
-#  API
+GET           /admin               controllers.Application.admin_cab()
+GET           /admin/users         controllers.Application.admin_users()
+GET           /admin/faculty       controllers.Application.admin_faculty()
+GET           /admin/aches         controllers.Application.admin_aches()
+GET           /admin/stips         controllers.Application.admin_stips()
+GET           /admin/cats          controllers.Application.admin_cats()
+
+# Admin API
 
 # jsRoutes
 GET           /api/jsRoutes        controllers.API.jsRoutes()

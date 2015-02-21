@@ -14,8 +14,10 @@ public class Secure extends Controller {
 
     public static Result index() {
         if(session("current_user") == null){
+            System.out.println("INFO: Незалогинен");
             return ok(auth.render(""));
         } else {
+            System.out.println("INFO: Залогинен");
             return redirect(controllers.routes.Application.cab());
         }
     }
@@ -31,6 +33,7 @@ public class Secure extends Controller {
         try{
             current_user = userList.get(0);
         } catch (Exception e){
+            System.out.println("INFO: Неверный логин или пароль!");
             return badRequest(auth.render("Неверный логин или пароль!"));
         }
 
@@ -39,15 +42,18 @@ public class Secure extends Controller {
                 session("current_user", Crypto.encryptAES(current_user.getUserId().toString()));
                 return redirect(controllers.routes.Application.cab());
             } else {
+                System.out.println("INFO: Неверный логин или пароль!");
                 return badRequest(auth.render("Неверный логин или пароль!"));
             }
         } else {
+            System.out.println("INFO: Неверный логин или пароль!");
             return badRequest(auth.render("Неверный логин или пароль!"));
         }
     }
 
     public static Result logOutProc() {
         session().clear();
+        System.out.println("INFO: Выход из сессии");
         return redirect(controllers.routes.Secure.index());
     }
 }

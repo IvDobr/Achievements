@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Achievement;
+import models.Stip;
 import models.User;
 import play.Routes;
 import play.libs.Crypto;
@@ -22,6 +23,19 @@ import java.util.Date;
 import java.util.List;
 
 public class API extends Controller {
+
+    static Date JsonToDate (String jsonDate) {
+        SimpleDateFormat formatDateJSON = new SimpleDateFormat();
+        formatDateJSON.applyPattern("yyyy-MM-dd HH");
+        Date docDate = new Date();
+        try {
+            return docDate = formatDateJSON.parse(jsonDate + " 12");
+            // +12 часов - это заплатка, чтобы не отнимались одни сутки после 26.10.2014
+        } catch (ParseException ex) {
+            System.out.println("Это не должно произойти");
+            return null;
+        }
+    }
 
     public static Result checkBenderJSON(){
         ObjectNode result = Json.newObject();
@@ -50,8 +64,9 @@ public class API extends Controller {
                 result.put("status", "error");
                 return badRequest(result);
             }
-        };
+        }
         result.put("status","OK");
+        System.out.println("MSG: Сработал Бендер");
         return ok(result);
     }
 
@@ -60,30 +75,12 @@ public class API extends Controller {
         ObjectNode result = Json.newObject();
         User current_user = User.find.byId(Crypto.decryptAES(session("current_user")));
         JsonNode request = request().body().asJson();
-        System.out.println("adding stip: " + request);
-        switch (Integer.parseInt(request.findPath("stip").textValue())){
-            case 1:
-                current_user.setUserStip(1); //Не задано
-                break;
-            case 2:
-                current_user.setUserStip(2); //Научная деятельность
-                break;
-            case 3:
-                current_user.setUserStip(3); //Спортивная деятельность
-                break;
-            case 4:
-                current_user.setUserStip(4); //Творческая деятельность
-                break;
-            case 5:
-                current_user.setUserStip(5); //Общественная деятельность
-                break;
-            case 6:
-                current_user.setUserStip(6); //Успехи в учебе
-                break;
-        }
         try{
+            current_user.setUserStip(Integer.parseInt(request.findPath("stip").textValue()));
             current_user.update();
+            System.out.println("MSG: Задана стипендия для" + current_user.getUserFirstName() + " " + current_user.getUserLastName());
         } catch(Exception e) {
+            System.out.println("ERROR: Не удалось сохранить стипендию");
             result.put("status", "error");
             return badRequest(result);
         }
@@ -93,9 +90,8 @@ public class API extends Controller {
 
     public static Result getStipJSON(){
         ObjectNode result = Json.newObject();
-        User current_user = User.find.byId(Crypto.decryptAES(session("current_user")));
         result.put("status", "OK");
-        result.put("stip", current_user.getUserStip());
+        result.put("stip", Stip.find.ref(User.find.byId(Crypto.decryptAES(session("current_user"))).getUserStip().toString()).getStipTitle());
         return ok(result);
     }
 
@@ -105,31 +101,21 @@ public class API extends Controller {
         JsonNode request = request().body().asJson();
         ObjectNode result = Json.newObject();
 
-        SimpleDateFormat formatDateJSON = new SimpleDateFormat();
-        formatDateJSON.applyPattern("yyyy-MM-dd HH");
-        Date docDate = new Date();
-        try {
-            docDate = formatDateJSON.parse(request.findPath("achDate").textValue() + " 12");
-            // +12 часов - это заплатка, чтобы не отнимались одни сутки после 26.10.2014
-        } catch (ParseException ex) {
-            System.out.println("Это не должно произойти");
-        }
-
         Achievement achievement = new Achievement(
                 current_user.getUserId(),
                 request.findPath("achTitle").textValue(),
-                docDate,
+                JsonToDate(request.findPath("achDate").textValue()),
                 request.findPath("achCat").textValue(),
                 request.findPath("achLongCat").textValue(),
                 request.findPath("achDop").textValue(),
                 "",
                 1,
-                1
-        );
+                1);
         try{
             achievement.save();
+            System.out.println("MSG: Сохранено достижение " + request.findPath("achTitle").textValue());
         } catch(Exception e) {
-            System.out.println("Тут какая-то проблема");
+            System.out.println("ERROR: Достижение не сохранено!");
             result.put("status", "error");
             return badRequest(result);
         }
@@ -146,23 +132,16 @@ public class API extends Controller {
     public static Result editAchievJSON() {
         JsonNode request = request().body().asJson();
         ObjectNode result = Json.newObject();
-        SimpleDateFormat formatDateJSON = new SimpleDateFormat();
-        formatDateJSON.applyPattern("yyyy-MM-dd HH");
-        Date docDate = new Date();
-        try {
-            docDate = formatDateJSON.parse(request.findPath("achDate").textValue() + " 12");
-            // +12 часов - это заплатка чтобы не отнимались одни сутки после 26.10.2014
-        } catch (ParseException ex) {
-            System.out.println("Это не должно произойти");
-        }
+
         Achievement achievement = Achievement.find.byId(request.findPath("achId").textValue());
         achievement.setAchTitle(request.findPath("achTitle").textValue());
-        achievement.setAchDate(docDate);
+        achievement.setAchDate(JsonToDate(request.findPath("achDate").textValue()));
         achievement.setAchCat(request.findPath("achCat").textValue());
         achievement.setAchLongCat(request.findPath("achLongCat").textValue());
         achievement.setAchDop(request.findPath("achDop").textValue());
         try{
             achievement.update();
+            System.out.println("MSG: Изменено достижение " + request.findPath("achTitle").textValue());
         } catch(Exception e) {
             System.out.println("Тут какая-то хуйня");
             result.put("status", "error");
@@ -187,10 +166,10 @@ public class API extends Controller {
     public static Result deleteAchievJSON(){
         JsonNode request = request().body().asJson();
         ObjectNode result = Json.newObject();
-        System.out.println("deleting : " + request);
         Achievement ach = Achievement.find.byId(request.findPath("achId").toString());
         if (ach.getAchPrem() != 2 && ach.getAchStip() != 2) {
             ach.delete();
+            System.out.println("MSG: Удалено достижение " + request.findPath("achId").toString());
             result.put("status","OK");
             return ok(result);
         } else {
@@ -201,11 +180,8 @@ public class API extends Controller {
 
     public static Result getUserInfoJSON(){
         ObjectNode result = Json.newObject();
-        User current_user = User.find.byId(Crypto.decryptAES(session("current_user")));
-        current_user.setUserPass(null);
-        JsonNode UserJson = Json.toJson(current_user);
         result.put("status", "OK");
-        result.put("user", UserJson);
+        result.put("user", User.find.byId(Crypto.decryptAES(session("current_user"))).getUserInfo());
         return ok(result);
     }
 
@@ -224,5 +200,4 @@ public class API extends Controller {
                 )
         );
     }
-
 }

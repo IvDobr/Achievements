@@ -1,11 +1,15 @@
 package models;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
+import play.libs.Json;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -18,12 +22,13 @@ public class User extends Model {
     @Constraints.Required
     @Column(unique=true)
     private String userLogin;
+    @Constraints.Required
     private String userFirstName;
     private String userLastName;
     @Constraints.Required
     private String userPass;
-    @Constraints.Required
     private Integer userFaculty;
+    @Constraints.Required
     private Date userReg;
     private Integer userStip;
     @Constraints.Required
@@ -53,6 +58,26 @@ public class User extends Model {
         this.userStip = userStip;
         this.userStatus = userStatus;
         this.userGroup = userGroup;
+    }
+
+    public ObjectNode getUserInfo() {
+        ObjectNode getUserInfo = Json.newObject();
+        
+        getUserInfo.put("userLogin", userLogin);
+        getUserInfo.put("userFirstName", userFirstName);
+        getUserInfo.put("userLastName", userLastName);
+        getUserInfo.put("userFaculty", Faculty.find.byId(userFaculty.toString()).getFclTitle());
+        DateFormat date = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        getUserInfo.put("userReg", date.format(userReg));
+        getUserInfo.put("userStip", Stip.find.byId(userStip.toString()).getStipTitle());
+        if (userStatus) {
+            getUserInfo.put("userStatus", "Активен");
+        } else {
+            getUserInfo.put("userStatus", "Не активен");
+        }
+        getUserInfo.put("userGroup", userGroup);
+
+        return getUserInfo;
     }
 
     public String getUserLastName() {

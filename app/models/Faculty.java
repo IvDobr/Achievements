@@ -83,4 +83,6 @@ public class Faculty extends Model {
     public void setFclId(Integer fclId) {
         this.fclId = fclId;
     }
+
+    public static Finder<String, Faculty> find = new Finder<String, Faculty>(String.class, Faculty.class);
 }

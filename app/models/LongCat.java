@@ -49,4 +49,6 @@ public class LongCat extends Model {
     public void setParentStip(Integer parentStip) {
         this.parentStip = parentStip;
     }
+
+    public static Finder<String, LongCat> find = new Finder<String, LongCat>(String.class, LongCat.class);
 }

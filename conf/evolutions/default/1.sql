@@ -10,8 +10,8 @@ create table achievement (
   ach_date                  timestamp,
   ach_cat                   varchar(255),
   ach_long_cat              varchar(255),
-  ach_dop                   varchar(255),
-  ach_comment               varchar(255),
+  ach_dop                   VARCHAR(4095),
+  ach_comment               VARCHAR(4095),
   ach_prem                  integer,
   ach_stip                  integer,
   constraint pk_achievement primary key (ach_id))

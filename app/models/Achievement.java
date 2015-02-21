@@ -2,6 +2,7 @@ package models;
 
 import play.db.ebean.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
@@ -19,7 +20,9 @@ public class Achievement extends Model {
     private Date achDate;
     private String achCat;
     private String achLongCat;
+    @Column(columnDefinition="VARCHAR(4095)")
     private String achDop;
+    @Column(columnDefinition="VARCHAR(4095)")
     private String achComment;
     private Integer achPrem;
     private Integer achStip;

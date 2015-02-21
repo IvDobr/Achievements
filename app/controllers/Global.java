@@ -66,6 +66,9 @@ public class Global extends GlobalSettings {
                 System.out.println("ERROR: Невозможно создать тестовый аккаунт председателя!");
             }
 
+            //КОНЕЦ СОЗДАНИЯ ТЕСТОВЫХ ЗАПИСЕЙ
+
+            //ПЕРВИЧНОЕ ЗАПОЛНЕНИЕ БАЗЫ
             models.Faculty fuck = new Faculty(
                     "IMEI",
                     null,
@@ -114,7 +117,7 @@ public class Global extends GlobalSettings {
                             "LongCat_5_4", "Признание студента победителем или призером проводимых учреждением высшего профессионального образования, общественной и иной организацией ведомственной или региональной олимпиады, конкурса, соревнования, состязания и иного мероприятия, направленных на выявление учебных достижений студентов, проведенных в течение 2 лет, предшествующих назначению стипендии.",
                     };
 
-            for (int i = 1; i <= 60; i=i+2) {
+            for (int i = 1; i <= cats.length - 1; i=i+2) {
                 try {
                     models.LongCat cat = new models.LongCat(cats[i], cats[i+1], Integer.parseInt(cats[i].substring(8, 9)));
                     cat.save();
@@ -125,20 +128,27 @@ public class Global extends GlobalSettings {
             }
 
             String[] stips =
-                    { "", "Не выбрано", "Научная деятельность", "Спортивная деятельность", "Творческая деятельность", "Общественная деятельность", "Успехи в учебе"};
+                    {
+                            "",
+                            "Не выбрано",
+                            "Научная деятельность",
+                            "Спортивная деятельность",
+                            "Творческая деятельность",
+                            "Общественная деятельность",
+                            "Успехи в учебе"
+                    };
 
-            for (int i = 1; i <= 6; i++) {
+            for (int i = 1; i <= stips.length - 1; i++) {
                 models.Stip stip = new models.Stip(stips[i]);
                 try {
                     stip.save();
-                    System.out.println("DONE: Запись Stip '" + i + "' создана.");
+                    System.out.println("DONE: Запись Stip '" + stips[i] + "' создана.");
                 } catch (Exception e) {
-                    System.out.println("ERROR: Невозможно создать запись Stip '" + i + "'!");
+                    System.out.println("ERROR: Невозможно создать запись Stip '" + stips[i] + "'!");
                 }
             }
-            
-            
-            //КОНЕЦ СОЗДАНИЯ ТЕСТОВЫХ ЗАПИСЕЙ
-        } else {System.out.println("MSG: Проверка на наличие аккаунта администратора");}
+            //БАЗА ЗАПОЛНЕНА
+
+        } else {System.out.println("MSG: Администратор уже есть, первичное заполнение исполнено");}
     }
 }
