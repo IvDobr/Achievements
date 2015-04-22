@@ -22,12 +22,20 @@ public class Application extends Controller {
 
     public static Result admin_cab() {
         User current_user = User.find.byId(Crypto.decryptAES(session("current_user")));
-        return ok(admin_cab.render(current_user.getUserFirstName() + " " + current_user.getUserLastName()));
+        if (current_user.getUserGroup().equals("administrator")) {
+            return ok(admin_cab.render(current_user.getUserFirstName() + " " + current_user.getUserLastName()));
+        } else {
+            return redirect(controllers.routes.Application.cab());
+        }
     }
 
     public static Result admin_users() {
         User current_user = User.find.byId(Crypto.decryptAES(session("current_user")));
-        return ok(admin_users.render(current_user.getUserFirstName() + " " + current_user.getUserLastName()));
+        if (current_user.getUserGroup().equals("administrator")) {
+            return ok(admin_users.render(current_user.getUserFirstName() + " " + current_user.getUserLastName()));
+        } else {
+            return redirect(controllers.routes.Application.cab());
+        }
     }
 
     public static Result admin_faculty() {

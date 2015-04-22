@@ -3,42 +3,51 @@
 # ~~~~
 
 # Home page
-GET           /                    controllers.Secure.index()
+GET           /                                     controllers.Secure.index()
 
 # Secure
-POST          /login               controllers.Secure.logInProc()
-GET           /logout              controllers.Secure.logOutProc()
+POST          /login                                controllers.Secure.logInProc()
+GET           /logout                               controllers.Secure.logOutProc()
 
 # Content
-GET           /cabinet             controllers.Application.cab()
+GET           /cabinet                              controllers.Application.cab()
 
 # API
-PUT           /api/userstip        controllers.API.setStipJSON()
-GET           /api/userstip        controllers.API.getStipJSON()
+PUT           /api/userstip                         controllers.API.setStipJSON()
+GET           /api/userstip                         controllers.API.getStipJSON()
 
-GET           /api/userinfo        controllers.API.getUserInfoJSON()
+GET           /api/userinfo                         controllers.API.getUserInfoJSON()
 
-GET           /api/bender          controllers.API.checkBenderJSON()
+GET           /api/bender                           controllers.API.checkBenderJSON()
 
-GET           /api/cabinet         controllers.API.getAllAchievsJSON()
-POST          /api/cabinet         controllers.API.newAchievJSON()
-DELETE        /api/cabinet         controllers.API.deleteAchievJSON()
-PUT           /api/cabinet         controllers.API.editAchievJSON()
+GET           /api/cabinet                          controllers.API.getAllAchievsJSON()
+PUT           /api/cabinet                          controllers.API.newAchievJSON()
+DELETE        /api/cabinet                          controllers.API.deleteAchievJSON()
+POST          /api/cabinet                          controllers.API.editAchievJSON()
+
+# Admin API
+GET           /admin/api/gen_information            controllers.Admin_API.getGeneralInfoJSON()
+
+GET           /admin/api/users                      controllers.Admin_API.getAllUsersJSON()
+PUT           /admin/api/adduser                    controllers.Admin_API.addUserJSON()
+DELETE        /admin/api/removeuser                 controllers.Admin_API.removeUserJSON()
+
+GET           /admin/api/userinfo                   controllers.Admin_API.getUserInfoJSON()
+GET           /admin/api/getfaculties_titles        controllers.Admin_API.getFacultiesTitlesJSON()
 
 # Admin
 
-GET           /admin               controllers.Application.admin_cab()
-GET           /admin/users         controllers.Application.admin_users()
-GET           /admin/faculty       controllers.Application.admin_faculty()
-GET           /admin/aches         controllers.Application.admin_aches()
-GET           /admin/stips         controllers.Application.admin_stips()
-GET           /admin/cats          controllers.Application.admin_cats()
-
-# Admin API
+GET           /admin                                controllers.Application.admin_cab()
+GET           /admin/users                          controllers.Application.admin_users()
+GET           /admin/faculty                        controllers.Application.admin_faculty()
+GET           /admin/aches                          controllers.Application.admin_aches()
+GET           /admin/stips                          controllers.Application.admin_stips()
+GET           /admin/cats                           controllers.Application.admin_cats()
 
 # jsRoutes
-GET           /api/jsRoutes        controllers.API.jsRoutes()
+GET           /api/jsRoutes                         controllers.API.jsRoutes()
+GET           /admin/api/jsRoutes                   controllers.Admin_API.jsRoutes()
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file        controllers.Assets.at(path="/public", file)
+GET           /assets/*file                         controllers.Assets.at(path="/public", file)

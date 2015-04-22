@@ -29,6 +29,9 @@
                 </div>
                 -->
                 <button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>
+                <br>
+                <button class="btn btn-lg btn-info btn-block" id="demo_stud">Демо аккаунт - студент</button>
+                <button class="btn btn-lg btn-info btn-block" id="demo_admin">Демо аккаунт - администратор</button>
             </form>
         </div>
         <div class="modal fade" id="not_login" tabindex="-1" role="dialog" aria-labelledby="not_loginLabel" aria-hidden="true">
@@ -61,8 +64,18 @@
                 </div>
             </div>
         </div>
-        <script xmlns="http://www.w3.org/1999/html">$('#not_login').on('shown.bs.modal', function () {
+        <script> xmlns="http://www.w3.org/1999/html">$('#not_login').on('shown.bs.modal', function () {
         $('#myInput').focus()
         })</script>
+        <script>
+            $('#demo_stud').click(function () {
+                $('#inputLogin').val("stud");
+                $('#inputPassword').val("123123");
+            });
+            $('#demo_admin').click(function () {
+                $('#inputLogin').val("admin");
+                $('#inputPassword').val("123123123");
+            });
+        </script>
     </body>
 </html>

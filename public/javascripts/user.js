@@ -40,13 +40,13 @@ ViewModelAhieves = function() {
     self.canDel = ko.observable(true);
     self.currStip = ko.observable("?");
 
-    self.userName = ko.observable("");
-    self.userStatus = ko.observable("");
-    self.userLogin = ko.observable("");
-    self.userFaculty = ko.observable("");
-    self.userReg = ko.observable("");
-    self.userStip = ko.observable("");
-    self.userGroup = ko.observable("");
+    self.meName = ko.observable("");
+    self.meStatus = ko.observable("");
+    self.meLogin = ko.observable("");
+    self.meFaculty = ko.observable("");
+    self.meReg = ko.observable("");
+    self.meStip = ko.observable("");
+    self.meGroup = ko.observable("");
 
     self.getUserInfo = function(){
         jsRoutes.controllers.API.getUserInfoJSON().ajax({
@@ -54,13 +54,13 @@ ViewModelAhieves = function() {
             contentType : 'charset=utf-8',
             success : function(data) {
                 var o = data.user;
-                self.userName(o.userFirstName + " " + o.userLastName);
-                self.userLogin(o.userLogin);
-                self.userFaculty(o.userFaculty);
-                self.userReg(o.userReg);
-                self.userStip(o.userStip);
-                self.userGroup(o.userGroup);
-                self.userStatus(o.userStatus);
+                self.meName(o.userFirstName + " " + o.userLastName);
+                self.meLogin(o.userLogin);
+                self.meFaculty(o.userFaculty);
+                self.meReg(o.userReg);
+                self.meStip(o.userStip);
+                self.meGroup(o.userGroup);
+                self.meStatus(o.userStatus);
             },
             error : function(data) {
                 alert("error! "+ data.error);
@@ -213,7 +213,7 @@ ViewModelAhieves = function() {
         });
     };
 
-    self.setStip = function(stip){;
+    self.setStip = function(stip){
         var o = {stip: stip};
         var dataJSON = JSON.stringify(o);
         console.log("dataJSON: " + dataJSON);
@@ -285,7 +285,7 @@ ViewModelAhieves = function() {
             contentType : 'charset=utf-8',
             success : function(data) {
                 var o = data.aches;
-                for (i = 0; i< o.length; i++){
+                for (var i = 0; i< o.length; i++){
                     var date = new Date(o[i].achDate);
                     var prem, cPrem, stip, cStip, canDel = true;
                     switch (o[i].achPrem) {

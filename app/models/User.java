@@ -5,12 +5,11 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import play.libs.Json;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User extends Model {
@@ -18,21 +17,35 @@ public class User extends Model {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @Column(unique = true)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,
+            generator="user_seq")
     private Integer userId;
+
     @Constraints.Required
     @Column(unique=true)
     private String userLogin;
+
     @Constraints.Required
     private String userFirstName;
+
     private String userLastName;
+
     @Constraints.Required
     private String userPass;
+
+    //foreign key
     private Integer userFaculty;
+
     @Constraints.Required
     private Date userReg;
+
+    //foreign key
     private Integer userStip;
+
     @Constraints.Required
     private Boolean userStatus;
+
     @Constraints.Required
     private String userGroup;
 
@@ -62,7 +75,7 @@ public class User extends Model {
 
     public ObjectNode getUserInfo() {
         ObjectNode getUserInfo = Json.newObject();
-        
+
         getUserInfo.put("userLogin", userLogin);
         getUserInfo.put("userFirstName", userFirstName);
         getUserInfo.put("userLastName", userLastName);
@@ -78,6 +91,17 @@ public class User extends Model {
         getUserInfo.put("userGroup", userGroup);
 
         return getUserInfo;
+    }
+
+    public ObjectNode getFullUserInfo() {
+        ObjectNode getFullUserInfo = this.getUserInfo();
+        getFullUserInfo.put("userPass", userPass);
+        getFullUserInfo.put("userId", userId);
+        List<Achievement> achievsList = Achievement.find.where()
+                .ilike("achUserId", userId.toString())
+                .findList();
+        getFullUserInfo.put("achCount", achievsList.size());
+        return getFullUserInfo;
     }
 
     public String getUserLastName() {

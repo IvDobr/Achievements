@@ -3,9 +3,7 @@ package models;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Stip extends Model {
@@ -13,9 +11,12 @@ public class Stip extends Model {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private Integer stipId;
-    @Constraints.Required
     @Column(unique = true)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,
+            generator="stip_seq")
+    private Integer stipId;
+
+    @Constraints.Required
     private String stipTitle;
 
     public Stip(String stipTitle) {

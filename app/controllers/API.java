@@ -12,13 +12,8 @@ import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,35 +34,14 @@ public class API extends Controller {
 
     public static Result checkBenderJSON(){
         ObjectNode result = Json.newObject();
-        List<String> lines = new ArrayList<String>();
-        List<Achievement> achievsList = Achievement.find.where()
-                .ilike("achUserId", Crypto.decryptAES(session("current_user")))
-                .findList();
-        try {
-            FileReader fileReader = new FileReader(new File("public/docs/aphorism.txt"));
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                lines.add(line);
-            }
-            fileReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (Random.checkBander(Crypto.decryptAES(session("current_user")))) {
+            result.put("status","OK");
+            return ok(result);
         }
-        for (Achievement item : achievsList) {
-            item.setAchPrem((int)(Math.random()*3+1));
-            item.setAchStip((int)(Math.random()*3+1));
-            item.setAchComment(lines.get((int)(Math.random()*lines.size())));
-            try{
-                item.update();
-            } catch(Exception e) {
-                result.put("status", "error");
-                return badRequest(result);
-            }
+        else {
+            result.put("status", "error");
+            return badRequest(result);
         }
-        result.put("status","OK");
-        System.out.println("MSG: Сработал Бендер");
-        return ok(result);
     }
 
     @BodyParser.Of(BodyParser.Json.class)

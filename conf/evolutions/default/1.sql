@@ -19,12 +19,13 @@ create table achievement (
 
 create table faculty (
   fcl_id                    integer not null,
+  fcl_long_title            varchar(255),
   fcl_title                 varchar(255),
   fcl_top_moder             integer,
   fcl_moder                 integer,
   fcl_under_moder           integer,
   fcl_adress                VARCHAR(2047),
-  constraint uq_faculty_fcl_title unique (fcl_title),
+  constraint uq_faculty_fcl_long_title unique (fcl_long_title),
   constraint pk_faculty primary key (fcl_id))
 ;
 
@@ -38,7 +39,6 @@ create table long_cat (
 create table stip (
   stip_id                   integer not null,
   stip_title                varchar(255),
-  constraint uq_stip_stip_title unique (stip_title),
   constraint pk_stip primary key (stip_id))
 ;
 

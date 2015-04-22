@@ -2,9 +2,7 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -14,17 +12,31 @@ public class Achievement extends Model {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @Column(unique = true)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,
+            generator="achievement_seq")
     private Integer achId;
+
+    //foreign key
     private Integer achUserId;
+
     private String achTitle;
+
     private Date achDate;
-    private String achCat;
+
+    private String achCat; // <-- излишне - в дальнейнем удалить
+
+    //foreign key
     private String achLongCat;
+
     @Column(columnDefinition="VARCHAR(4095)")
     private String achDop;
+
     @Column(columnDefinition="VARCHAR(4095)")
     private String achComment;
+
     private Integer achPrem;
+
     private Integer achStip;
 
     public Achievement(

@@ -1,9 +1,10 @@
+import controllers.Random;
 import models.Faculty;
+import models.LongCat;
+import models.Stip;
 import models.User;
 import play.Application;
 import play.GlobalSettings;
-
-import java.util.concurrent.Callable;
 
 public class Global extends GlobalSettings {
 
@@ -13,12 +14,12 @@ public class Global extends GlobalSettings {
                 .ilike("userLogin", "admin")
                 .findList().isEmpty()) {
             //СОЗДАНИЕ АДМИНИСТРАТОРА
-            models.User useradmin = new models.User(
+            User useradmin = new User(
                     "admin",
                     "Сэр",
                     "Босс",
                     "123123123",
-                    null,
+                    1,
                     new java.util.Date (),
                     1,
                     true,
@@ -31,52 +32,16 @@ public class Global extends GlobalSettings {
             }
             //КОНЕЦ АДМИНИСТРАТОРА
 
-            //ТЕСТОВЫЕ ЗАПИСИ
-            models.User userprost = new models.User(
-                    "stud",
-                    "Студент",
-                    "Обычный",
-                    "123123",
-                    1,
-                    new java.util.Date (),
-                    1,
-                    true,
-                    "student");
-            try {
-                userprost.save();
-                System.out.println("DONE: Тестовый аккаунт студента создан!");
-            } catch (Exception e) {
-                System.out.println("ERROR: Невозможно создать тестовый аккаунт студента!");
-            }
-
-            models.User usermoder = new models.User(
-                    "moder",
-                    "Председатель",
-                    "Факультета",
-                    "123123",
-                    1,
-                    new java.util.Date (),
-                    1,
-                    true,
-                    "moder");
-            try {
-                usermoder.save();
-                System.out.println("DONE: Тестовый аккаунт председателя создан!");
-            } catch (Exception e) {
-                System.out.println("ERROR: Невозможно создать тестовый аккаунт председателя!");
-            }
-
-            //КОНЕЦ СОЗДАНИЯ ТЕСТОВЫХ ЗАПИСЕЙ
-
             //ПЕРВИЧНОЕ ЗАПОЛНЕНИЕ БАЗЫ
-            models.Faculty fuck = new Faculty(
-                    "IMEI",
+            Faculty fuck_0 = new Faculty(
+                    "-",
+                    "-",
                     null,
-                    3,
                     null,
-                    "г. Иркутск, Бульвар Гагарина, 20");
+                    null,
+                    null);
             try {
-                fuck.save();
+                fuck_0.save();
                 System.out.println("DONE: Факультет добавлен!");
             } catch (Exception e) {
                 System.out.println("ERROR: Невозможно добавить факультет!");
@@ -119,7 +84,7 @@ public class Global extends GlobalSettings {
 
             for (int i = 1; i <= cats.length - 1; i=i+2) {
                 try {
-                    models.LongCat cat = new models.LongCat(cats[i], cats[i+1], Integer.parseInt(cats[i].substring(8, 9)));
+                    LongCat cat = new LongCat(cats[i], cats[i+1], Integer.parseInt(cats[i].substring(8, 9)));
                     cat.save();
                     System.out.println("DONE: Запись LongCat '" + cats[i] + "' создана.");
                 } catch (Exception e) {
@@ -139,7 +104,7 @@ public class Global extends GlobalSettings {
                     };
 
             for (int i = 1; i <= stips.length - 1; i++) {
-                models.Stip stip = new models.Stip(stips[i]);
+                Stip stip = new Stip(stips[i]);
                 try {
                     stip.save();
                     System.out.println("DONE: Запись Stip '" + stips[i] + "' создана.");
@@ -147,6 +112,47 @@ public class Global extends GlobalSettings {
                     System.out.println("ERROR: Невозможно создать запись Stip '" + stips[i] + "'!");
                 }
             }
+
+            String[] faculties =
+                    {
+                            "",
+                            "Институт математики, экономики и информатики",     "ИМЭИ",     "г. Иркутск, Бульвар Гагарина, 20",
+                            "Физический факультет",                             "Физфак",   "г. Иркутск, Бульвар Гагарина, 20",
+                            "Байкальская международная бизнес-школа ИГУ",       "БМБШ",     "г. Иркутск, Карла Маркса, 1",
+                            "Институт социальных наук",                         "ИСН",      "г. Иркутск, Ленина, 3",
+                            "Международный институт экономики и лингвистики",   "МИЭЛ",     "г. Иркутск, Улан-Баторская, 6",
+                            "Педагогический институт",                          "ПИ",       "г. Иркутск, Нижняя Набережная, 6",
+                            "Юридический институт",                             "ЮИ",       "г. Иркутск, Улан-Баторская, 10",
+                            "Биолого-почвенный факультет",                      "Биофак",   "г. Иркутск, Сухэ-Батора, 5",
+                            "Географический факультет",                         "Геогрфак", "г. Иркутск, Лермонтова, 126",
+                            "Геологический факультет",                          "Геофак",   "г. Иркутск, Ленина, 3",
+                            "Исторический факультет",                           "Истфак",   "г. Иркутск, Чкалова, 2",
+                            "Сибирско-американский факультет",                  "САФ",      "г. Иркутск, Улан-Баторская, 6",
+                            "Факультет психологии",                             "Психфак",  "г. Иркутск, Чкалова, 2",
+                            "Факультет сервиса и рекламы",                      "ФСИР",     "г. Иркутск, Лермонтова, 126",
+                            "Факультет филологии и журналистики",               "Филфак",   "г. Иркутск, Чкалова, 2",
+                            "Химический факультет",                             "Химфак",   "г. Иркутск, Лермонтова, 126"
+                            //должно быть как минимум 16 факультетов
+                    };
+
+            for (int i = 1; i <= faculties.length - 1; i=i+3) {
+                Faculty fuck = new Faculty(
+                        faculties[i],
+                        faculties[i+1],
+                        null,
+                        3,
+                        null,
+                        faculties[i+2]);
+                try {
+                    fuck.save();
+                    System.out.println("DONE: Факультет " + faculties[i+1] + " добавлен!");
+                } catch (Exception e) {
+                    System.out.println("ERROR: Невозможно добавить факультет " + faculties[i+1] + "!");
+                }
+            }
+
+            Random.testDataBase(); //Рандомизация базы данных
+
             //БАЗА ЗАПОЛНЕНА
 
         } else {System.out.println("MSG: Администратор уже есть, первичное заполнение исполнено");}

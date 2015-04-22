@@ -1,6 +1,5 @@
 package models;
 
-import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.Column;
@@ -12,12 +11,14 @@ public class LongCat extends Model {
 
     private static final long serialVersionUID = 1L;
 
-    @Constraints.Required
     @Column(unique = true)
     @Id
     private String longId;
+
     @Column(columnDefinition="VARCHAR(4095)")
     private String longTitle;
+
+    //foreign key
     private Integer parentStip;
 
     public LongCat(String longId, String longTitle, Integer parentStip) {
